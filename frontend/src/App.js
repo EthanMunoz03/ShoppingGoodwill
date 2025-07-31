@@ -12,7 +12,7 @@ export default function ScraperPage() {
     if (!keyword) return;
     setLoading(true);
     try {
-      const response = await fetch(`/api/scrape?keyword=${encodeURIComponent(keyword)}`);
+      const response = await fetch(`https://shoppinggoodwill.onrender.com/scrape?keyword=${encodeURIComponent(keyword)}`);
       const data = await response.json();
       setResults(data.results);
     } catch (err) {
