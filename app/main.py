@@ -2,6 +2,7 @@ from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 from app.scraper import scrape_clothing
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
 app = FastAPI()
 
@@ -12,8 +13,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app.run(host="0.0.0.0", port=8080)
 
 @app.get("/")
 def read_root():
@@ -26,3 +25,6 @@ def scrape(keyword: str = Query(..., description="Search keyword for clothing"))
         return JSONResponse(content={"results": results})
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8080)
