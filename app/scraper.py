@@ -60,4 +60,6 @@ def scrape_clothing(keyword):
                 "image": image_url
             })
 
+    print(soup.prettify()[:1000])
+
     return items
