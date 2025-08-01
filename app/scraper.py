@@ -2,11 +2,18 @@ import requests
 from bs4 import BeautifulSoup
 
 def scrape_clothing(keyword):
-    base_url = "https://www.shopgoodwill.com/categories/listing"
-    params = {"st": keyword, "c": 28}  # category 28 = men's clothing
-    headers = {"User-Agent": "Mozilla/5.0"}
+    # Construct the full URL manually
+    search_url = (
+        "https://shopgoodwill.com/categories/listing?"
+        f"st={keyword}&sg=&c=28&s=&lp=0&hp=999999&sbn=&spo=false&snpo=false"
+        "&socs=false&sd=false&sca=false&caed=7%2F31%2F2025&cadb=7&scs=false"
+        "&sis=false&col=1&p=1&ps=40&desc=false&ss=0&UseBuyerPrefs=true"
+        "&sus=false&cln=2&catIds=-1,10,28&pn=&wc=false&mci=false&hmt=false"
+        "&layout=grid&ihp=true"
+    )
 
-    response = requests.get(base_url, params=params, headers=headers)
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.get(search_url, headers=headers)
     soup = BeautifulSoup(response.text, "html.parser")
 
     items = []
