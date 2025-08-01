@@ -13,6 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.run(host="0.0.0.0", port=8080)
 
 @app.get("/")
 def read_root():
