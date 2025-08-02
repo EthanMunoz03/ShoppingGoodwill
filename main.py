@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
-from app.scraper import scrape_clothing
+from scraper import scrape_clothing
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
