@@ -3,8 +3,10 @@ from fastapi.responses import JSONResponse
 from scraper import scrape_clothing
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+from scraper import router
 
 app = FastAPI()
+app.include_router(router)
 
 app.add_middleware(
     CORSMiddleware,
