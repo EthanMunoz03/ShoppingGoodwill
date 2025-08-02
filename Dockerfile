@@ -16,7 +16,7 @@ RUN playwright install chromium
 WORKDIR /app
 
 # Copy code into container
-COPY . .
+COPY . /app
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
