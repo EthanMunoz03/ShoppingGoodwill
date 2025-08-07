@@ -3,6 +3,8 @@ from fastapi.responses import JSONResponse
 from playwright.sync_api import sync_playwright
 import urllib.parse
 import traceback
+import time
+import datetime
 
 router = APIRouter()
 
@@ -25,10 +27,21 @@ def scrape_clothing(term: str = Query(...)):
             browser = p.chromium.launch(headless=True)
             page = browser.new_page()
 
+            page.set_default_navigation_timeout(120000)
+            page.set_extra_http_headers({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"})
+
+            today_str = datetime.now().strftime("%m/%d/%Y")
+
+            MAX_PAGES = 10
             page_number = 1
-            while True:
+            while page_number < MAX_PAGES:
+                
+                page = browser.new_page()
+                page.set_default_navigation_timeout(120000)
+                page.set_extra_http_headers({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"})
+
                 query_params = {
-                    "st": encoded_term,
+                    "st": term,
                     "sg": "",
                     "c": "28",
                     "s": "",
@@ -40,7 +53,7 @@ def scrape_clothing(term: str = Query(...)):
                     "socs": "false",
                     "sd": "false",
                     "sca": "false",
-                    "caed": "",
+                    "caed": today_str,
                     "cadb": "7",
                     "scs": "false",
                     "sis": "false",
@@ -62,14 +75,33 @@ def scrape_clothing(term: str = Query(...)):
                 }
 
                 full_url = base_url + "?" + urllib.parse.urlencode(query_params)
-                page.goto(full_url, timeout=60000)
+                
+                MAX_RETRIES = 3
+                for attempt in range(MAX_RETRIES):
+                    try:
+                        time.sleep(2)
+                        page.goto(full_url, wait_until="load") #run fly deploy again and check idk
+                        break 
+
+                    except Exception as e:
+                        if attempt == MAX_RETRIES - 1:
+                            # page.screenshot(path=f"error_page_{attempt}.png")
+                            page.close()
+                            raise e
+                        else:
+                            print(f"Retrying page.goto() attempt {attempt+1}")
+                            # page.screenshot(path=f"error_page_{page_number}.png")
+                            continue
 
                 try:
                     page.wait_for_selector("div.feat-item", timeout=10000)
                 except:
-                    break  # No more results or failed to load
+                    print(f"Timeout on page {page_number}")
+                    page_number += 1
+                    continue
 
                 items = page.query_selector_all("div.feat-item")
+                print(f"Page {page_number}: Found {len(items)} items")
                 if not items:
                     break
 
@@ -94,7 +126,8 @@ def scrape_clothing(term: str = Query(...)):
                         "image": image,
                         "link": full_link
                     })
-
+                
+                page.close()
                 page_number += 1
 
             browser.close()
