@@ -37,12 +37,12 @@ export default function ScraperPage() {
             placeholder="Search for clothing (e.g. shirt, jeans)"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            className="w-full max-w-xl px-4 py-2 rounded-l-full border border-gray-300"
+            className="max-w-xl rounded-l-full"
           />
           <Button
             onClick={() => handleSearch()}
             disabled={loading}
-            className="rounded-r-full px-6 bg-blue-800 text-white hover:bg-blue-700"
+            className="rounded-r-full"
           >
             {loading ? "Searching..." : "Search"}
           </Button>
@@ -53,7 +53,7 @@ export default function ScraperPage() {
             <Button
               key={term}
               onClick={() => handleSearch(term)}
-              className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200"
+              className="bg-blue-100 text-blue-800 hover:bg-blue-200"
             >
               {term}
             </Button>
