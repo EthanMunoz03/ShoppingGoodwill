@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "./components/ui/card";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
+import './app.css';
 
 export default function ScraperPage() {
   const [keyword, setKeyword] = useState("");
@@ -25,37 +26,37 @@ export default function ScraperPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-[#0057B8] text-white py-8 text-center shadow-md">
-        <h1 className="text-4xl font-bold tracking-wide">shopGoodwillBetter</h1>
+    <div className="page-container">
+      <header className="page-header">
+        <h1 className="header-title">shopGoodwillBetter</h1>
       </header>
 
-      <main className="max-w-screen-xl mx-auto p-6">
-        <div className="flex justify-center mb-6">
-          <div className="flex w-full max-w-xl">
+      <main className="main-content">
+        <div className="search-container">
+          <div className="search-box">
             <Input
               type="text"
               placeholder="Search for clothing (e.g. shirt, jeans)"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              className="rounded-l-full px-4 py-2 border border-gray-300"
+              className="input-style"
             />
             <Button
               onClick={() => handleSearch()}
               disabled={loading}
-              className="rounded-r-full px-6 bg-[#0057B8] text-white hover:bg-blue-700"
+              className="search-button"
             >
               {loading ? "Searching..." : "Search"}
             </Button>
           </div>
         </div>
 
-        <div className="flex justify-center gap-2 mb-6 flex-wrap">
+        <div className="saved-searches">
           {savedSearches.map((term) => (
             <Button
               key={term}
               onClick={() => handleSearch(term)}
-              className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200"
+              className="saved-button"
             >
               {term}
             </Button>
@@ -63,24 +64,24 @@ export default function ScraperPage() {
         </div>
 
         {loading && (
-          <div className="text-center text-lg font-semibold text-blue-800 mb-6">
+          <div className="loading-text">
             Loading results...
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="results-grid">
           {results.map((item, idx) => (
-            <Card key={idx} className="hover:shadow-md">
-              <CardContent className="p-4 space-y-2 text-center">
+            <Card key={idx} className="result-card">
+              <CardContent className="card-content">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="h-48 w-full object-cover mb-4 rounded-md"
+                  className="card-image"
                 />
                 <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  <h2 className="text-lg font-semibold text-blue-600 hover:underline">{item.title}</h2>
+                  <h2 className="card-title">{item.title}</h2>
                 </a>
-                <p className="text-gray-700">{item.price}</p>
+                <p className="card-price">{item.price}</p>
               </CardContent>
             </Card>
           ))}
