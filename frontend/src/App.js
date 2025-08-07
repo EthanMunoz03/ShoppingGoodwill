@@ -26,67 +26,69 @@ export default function ScraperPage() {
   };
 
   return (
-    <div className="page-container">
-      <header className="page-header">
+    <div>
+      <div className="page-header">
         <h1 className="header-title">shopGoodwillBetter</h1>
-      </header>
+      </div> 
 
-      <main className="main-content">
-        <div className="search-container">
-          <div className="search-box">
-            <Input
-              type="text"
-              placeholder="Search for clothing (e.g. shirt, jeans)"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              className="input-style"
-            />
-            <Button
-              onClick={() => handleSearch()}
-              disabled={loading}
-              className="search-button"
-            >
-              {loading ? "Searching..." : "Search"}
-            </Button>
+      <div className="page-container">
+        <main className="main-content">
+          <div className="search-container">
+            <div className="search-box">
+              <Input
+                type="text"
+                placeholder="Search for clothing (e.g. shirt, jeans)"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                className="input-style"
+              />
+              <Button
+                onClick={() => handleSearch()}
+                disabled={loading}
+                className="search-button"
+              >
+                {loading ? "Searching..." : "Search"}
+              </Button>
+            </div>
           </div>
-        </div>
 
-        <div className="saved-searches">
-          {savedSearches.map((term) => (
-            <Button
-              key={term}
-              onClick={() => handleSearch(term)}
-              className="saved-button"
-            >
-              {term}
-            </Button>
-          ))}
-        </div>
-
-        {loading && (
-          <div className="loading-text">
-            Loading results...
+          <div className="saved-searches">
+            {savedSearches.map((term) => (
+              <Button
+                key={term}
+                onClick={() => handleSearch(term)}
+                className="saved-button"
+              >
+                {term}
+              </Button>
+            ))}
           </div>
-        )}
 
-        <div className="results-grid">
-          {results.map((item, idx) => (
-            <Card key={idx} className="result-card">
-              <CardContent className="card-content">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="card-image"
-                />
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  <h2 className="card-title">{item.title}</h2>
-                </a>
-                <p className="card-price">{item.price}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </main>
+          {loading && (
+            <div className="loading-text">
+              Loading results...
+            </div>
+          )}
+
+          <div className="results-grid">
+            {results.map((item, idx) => (
+              <Card key={idx} className="result-card">
+                <CardContent className="card-content">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="card-image"
+                  />
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    <h2 className="card-title">{item.title}</h2>
+                  </a>
+                  <p className="card-price">{item.price}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
