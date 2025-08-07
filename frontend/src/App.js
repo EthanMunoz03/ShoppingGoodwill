@@ -26,26 +26,28 @@ export default function ScraperPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="bg-blue-800 text-white py-6 text-center">
-        <h1 className="text-4xl font-bold">shopGoodwillBetter</h1>
+      <header className="bg-[#0057B8] text-white py-8 text-center shadow-md">
+        <h1 className="text-4xl font-bold tracking-wide">shopGoodwillBetter</h1>
       </header>
 
       <main className="max-w-screen-xl mx-auto p-6">
         <div className="flex justify-center mb-6">
-          <Input
-            type="text"
-            placeholder="Search for clothing (e.g. shirt, jeans)"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            className="max-w-xl rounded-l-full"
-          />
-          <Button
-            onClick={() => handleSearch()}
-            disabled={loading}
-            className="rounded-r-full"
-          >
-            {loading ? "Searching..." : "Search"}
-          </Button>
+          <div className="flex w-full max-w-xl">
+            <Input
+              type="text"
+              placeholder="Search for clothing (e.g. shirt, jeans)"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              className="rounded-l-full px-4 py-2 border border-gray-300"
+            />
+            <Button
+              onClick={() => handleSearch()}
+              disabled={loading}
+              className="rounded-r-full px-6 bg-[#0057B8] text-white hover:bg-blue-700"
+            >
+              {loading ? "Searching..." : "Search"}
+            </Button>
+          </div>
         </div>
 
         <div className="flex justify-center gap-2 mb-6 flex-wrap">
@@ -53,7 +55,7 @@ export default function ScraperPage() {
             <Button
               key={term}
               onClick={() => handleSearch(term)}
-              className="bg-blue-100 text-blue-800 hover:bg-blue-200"
+              className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200"
             >
               {term}
             </Button>
