@@ -9,7 +9,7 @@ export default function ScraperPage() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const savedSearches = ["jackets", "sweaters", "shirts", "pants", "shorts", "shoes"];
+  const savedSearches = ["jacket", "sweater", "shirt", "pants", "shorts", "boots"];
 
   const handleSearch = async (searchTerm = keyword) => {
     if (!searchTerm) return;
