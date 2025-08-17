@@ -73,6 +73,37 @@ body {
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 2rem;
+  position: relative;
+}
+
+.saved-search-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.remove-button {
+  display: none;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 18px;
+  height: 18px;
+  background-color: #a70000;
+  color: white;
+  font-weight: bolder;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.saved-search-wrapper:hover .remove-button {
+  display: block;
+}
+
+.saved-search-wrapper:hover .saved-button {
+  opacity: 0.9;
 }
 
 .saved-button {
@@ -87,6 +118,22 @@ body {
 }
 
 .saved-button:hover {
+  background-color: #bfdbfe;
+}
+
+.save-search-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #0057B8;
+  color: #dbeafe;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.save-search-button:hover {
   background-color: #bfdbfe;
 }
 
