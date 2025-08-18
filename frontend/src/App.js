@@ -31,9 +31,18 @@ export default function ScraperPage() {
       const response = await fetch(
         `https://app-cool-waterfall-6282.fly.dev/scrape?term=${encodeURIComponent(searchTerm)}`
       );
+
       const data = await response.json();
-      setResults(data.results);
-    } catch (err) {
+
+      if (Array.isArray(data)) {
+        setResults(data);
+      } else if (data.results) {
+        setResults(data.results);
+      } else {
+        setResults([]);
+      }
+
+      } catch (err) {
       console.error("Error fetching results:", err);
       setResults([]);
     }
@@ -115,7 +124,7 @@ export default function ScraperPage() {
                     alt={item.title}
                     className="card-image"
                   />
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
                     <h2 className="card-title">{item.title}</h2>
                   </a>
                   <p className="card-price">{item.price}</p>
