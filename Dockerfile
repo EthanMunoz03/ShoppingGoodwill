@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache-dir playwright 
 
 # Install Chromium for Playwright
-RUN playwright install --with-deps chromium
+RUN playwright install chromium
 
 # Set working directory
 WORKDIR /app
