@@ -42,7 +42,7 @@ export default function ScraperPage() {
         setResults([]);
       }
 
-      } catch (err) {
+    } catch (err) {
       console.error("Error fetching results:", err);
       setResults([]);
     }
@@ -65,7 +65,7 @@ export default function ScraperPage() {
   return (
     <div>
       <div className="page-header">
-        <h1 className="header-title">shopGoodwillBetter</h1>
+        <h1 className="header-title">thriftBetter</h1>
       </div>
 
       <div className="page-container">
